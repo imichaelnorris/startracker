@@ -5,7 +5,7 @@
 % catalog to 'parsed_star_db.mat' with the following data:
 % -position     3D positions of stars on the unit sphere, as an Nx3 matrix
 % -mag_Ap       Aparent magnitude of stars as an Nx1 matrix
-% -type         Spectral Classification of stars as an Nx1 matrix using the
+% -spec_class   Spectral Classification of stars as an Nx1 matrix using the
 %               following coding: [O B A F G K M ?] = [1 2 3 4 5 6 7 8],
 %               where '?' means unclassified
 % -star_id      ID of each star in the hygdata_v3 database
@@ -29,29 +29,29 @@ type_st   = spect(ind);     % Star Type
 %[O B A F G K M ?] = [1 2 3 4 5 6 7 8]
 %class 8 is for anything else, and things without a known class. We'll
 %assume these stars have no UV signature
-type = zeros(size(mag_Ap));
-for i = 1:size(type,1)
+spec_class = zeros(size(mag_Ap));
+for i = 1:size(spec_class,1)
     if size(type_st{i},2) > 0
         l = type_st{i}(1);
         if l == 'O'
-            type(i) = 1;
+            spec_class(i) = 1;
         elseif l == 'B'
-            type(i) = 2;
+            spec_class(i) = 2;
         elseif l == 'A'
-            type(i) = 3;
+            spec_class(i) = 3;
         elseif l == 'F'
-            type(i) = 4;
+            spec_class(i) = 4;
         elseif l == 'G'
-            type(i) = 5;
+            spec_class(i) = 5;
         elseif l == 'K'
-            type(i) = 6;
+            spec_class(i) = 6;
         elseif l == 'M'
-            type(i) = 7;
+            spec_class(i) = 7;
         else
-            type(i) = 8;
+            spec_class(i) = 8;
         end
     else
-        type(i) = 8;
+        spec_class(i) = 8;
     end
 end
-save('parsed_star_db.mat','star_id','position','mag_Ap','type');
+save('parsed_star_db.mat','star_id','position','mag_Ap','spec_class');
